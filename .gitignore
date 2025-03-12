@@ -1,0 +1,5 @@
+# Storing API keys in .env files
+.env
+
+# Persistent volumes
+/volumes/

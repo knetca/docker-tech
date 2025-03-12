@@ -1,0 +1,77 @@
+
+# The password generator
+pwgen.t1.knet.ca {
+    reverse_proxy pwgen:5069
+}
+
+# The subnet calculator
+visualsubnetcalc.t1.knet.ca {
+    reverse_proxy visualsubnetcalc:8080
+}
+
+# The simple IP address displayer
+myip.t1.knet.ca {
+    templates
+    header Content-Type text/html
+    respond <<HTML
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>Directory</title>
+            <style>
+              body {
+                width: 35em;
+                margin: 0 auto;
+                font-family: Gerogia, Times New Roman, serif;
+                text-align: center;
+              }
+            </style>
+          </head>
+          <body>
+        <h1>My IP Address</h1>
+        <h2>{{.RemoteIP}}</h2>
+        <hr />
+            <div class="foot">
+              <small>Time: {{now | date "Monday 2nd of January 2006 15:04:05 MST"}}<br />Server: {{.Host}}</small>
+            </div>
+          </body>
+        </html>
+        HTML 200
+}
+
+# The Directory
+tech1.knet.ca t1.knet.ca {
+    templates
+    header Content-Type text/html
+    respond <<HTML
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>Directory</title>
+            <style>
+              body {
+                width: 35em;
+                margin: 0 auto;
+                font-family: Gerogia, Times New Roman, serif;
+                text-align: left;
+              }
+              h1, .foot {
+                text-align: center;
+              }
+            </style>
+          </head>
+          <body>
+        <h1>Directory</h1>
+        <ul>
+          <li>The most exciting <a href="https://pwgen.t1.knet.ca">Password Generator</a></li>
+          <li>This handy <a href="https://visualsubnetcalc.t1.knet.ca">Visual Subnet Caluclator</a></li>
+          <li>What is <a href="https://myip.t1.knet.ca">My IP</a>?</li>
+        </ul>
+        <hr />
+            <div class="foot">
+              <small>Time: {{now | date "Monday 2nd of January 2006 15:04:05 MST"}}<br />Server: {{.Host}}</small>
+            </div>
+          </body>
+        </html>
+        HTML 200
+}
