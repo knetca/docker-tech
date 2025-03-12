@@ -1,16 +1,16 @@
 
 # The password generator
-pwgen.t1.knet.ca {
+pwgen.tech.knet.ca {
     reverse_proxy pwgen:5069
 }
 
 # The subnet calculator
-visualsubnetcalc.t1.knet.ca {
+visualsubnetcalc.tech.knet.ca {
     reverse_proxy visualsubnetcalc:8080
 }
 
 # The simple IP address displayer
-myip.t1.knet.ca {
+myip.knet.ca {
     templates
     header Content-Type text/html
     respond <<HTML
@@ -40,7 +40,7 @@ myip.t1.knet.ca {
 }
 
 # The Directory
-tech1.knet.ca t1.knet.ca {
+tech.knet.ca {
     templates
     header Content-Type text/html
     respond <<HTML
@@ -63,9 +63,9 @@ tech1.knet.ca t1.knet.ca {
           <body>
         <h1>Directory</h1>
         <ul>
-          <li>The most exciting <a href="https://pwgen.t1.knet.ca">Password Generator</a></li>
-          <li>This handy <a href="https://visualsubnetcalc.t1.knet.ca">Visual Subnet Caluclator</a></li>
-          <li>What is <a href="https://myip.t1.knet.ca">My IP</a>?</li>
+          <li>The most exciting <a href="https://pwgen.tech.knet.ca">Password Generator</a></li>
+          <li>This handy <a href="https://visualsubnetcalc.tech.knet.ca">Visual Subnet Caluclator</a></li>
+          <li>What is <a href="https://myip.knet.ca">My IP</a>?</li>
         </ul>
         <hr />
             <div class="foot">
