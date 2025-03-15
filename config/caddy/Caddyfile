@@ -17,7 +17,7 @@ myip.knet.ca {
         <!DOCTYPE html>
         <html>
           <head>
-            <title>Directory</title>
+            <title>My IP is:</title>
             <style>
               body {
                 width: 35em;
@@ -32,7 +32,7 @@ myip.knet.ca {
         <h2>{{.RemoteIP}}</h2>
         <hr />
             <div class="foot">
-              <small>Time: {{now | date "Monday 2nd of January 2006 15:04:05 MST"}}<br />Server: {{.Host}}</small>
+              <small>Time: {{now | date "Monday January 2, 2006 15:04:05 MST"}}<br />Server: {{.Host}}</small>
             </div>
           </body>
         </html>
@@ -69,7 +69,7 @@ tech.knet.ca {
         </ul>
         <hr />
             <div class="foot">
-              <small>Time: {{now | date "Monday 2nd of January 2006 15:04:05 MST"}}<br />Server: {{.Host}}</small>
+              <small>Time: {{now | date "Monday January 2, 2006 15:04:05 MST"}}<br />Server: {{.Host}}</small>
             </div>
           </body>
         </html>
