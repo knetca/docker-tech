@@ -1,5 +1,14 @@
 services:
 
+  # From https://github.com/bndw/wifi-card
+  # Docker hub: https://hub.docker.com/r/bndw/wifi-card
+  wifiqr:
+    image: bndw/wifi-card:fbde2cd
+    container_name: wifiqr
+    #ports:
+    #  - "3000:80"
+    restart: unless-stopped
+
   # From https://github.com/jocxfin/pwgen
   # Docker hub: https://hub.docker.com/r/jocxfin/pwgen
   pwgen:
