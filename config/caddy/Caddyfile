@@ -26,7 +26,7 @@ myip.knet.ca {
               body {
                 width: 35em;
                 margin: 0 auto;
-                font-family: Gerogia, Times New Roman, serif;
+                font-family: Georgia, Times New Roman, serif;
                 text-align: center;
               }
             </style>
@@ -43,40 +43,59 @@ myip.knet.ca {
         HTML 200
 }
 
-# The Directory
+# The Directory + Starlink feeds
 tech.knet.ca {
-    templates
-    header Content-Type text/html
-    respond <<HTML
-        <!DOCTYPE html>
-        <html>
-          <head>
-            <title>Directory</title>
-            <style>
-              body {
-                width: 35em;
-                margin: 0 auto;
-                font-family: Gerogia, Times New Roman, serif;
-                text-align: left;
-              }
-              h1, .foot {
-                text-align: center;
-              }
-            </style>
-          </head>
-          <body>
-        <h1>Directory</h1>
-        <ul>
-          <li>The most exciting <a href="https://pwgen.tech.knet.ca">Password Generator</a></li>
-          <li>This handy <a href="https://visualsubnetcalc.tech.knet.ca">Visual Subnet Caluclator</a></li>
-          <li>What is <a href="https://myip.knet.ca">My IP</a>?</li>
-          <li>Generate <a href="https://wifiqr.tech.knet.ca">QR Codes</a> for easy WiFi access</li>
-        </ul>
-        <hr />
-            <div class="foot">
-              <small>Time: {{now | date "Monday January 2, 2006 15:04:05 MST"}}<br />Server: {{.Host}}</small>
-            </div>
-          </body>
-        </html>
-        HTML 200
+
+    # Feeds: plain text, no templating. Served from the read-only mount.
+    handle_path /feeds/* {
+        root * /srv/feeds
+
+        # Optional: restrict to the FortiGate's fetch source IP(s).
+        # Uncomment after confirming the real source address in the access log.
+        # @notfg not remote_ip <fg-wan-1> <fg-wan-2>
+        # respond @notfg 403
+
+        header Content-Type text/plain
+        header Cache-Control "no-cache"
+        file_server
+    }
+
+    # Everything else: the directory page
+    handle {
+        templates
+        header Content-Type text/html
+        respond <<HTML
+            <!DOCTYPE html>
+            <html>
+              <head>
+                <title>Directory</title>
+                <style>
+                  body {
+                    width: 35em;
+                    margin: 0 auto;
+                    font-family: Georgia, Times New Roman, serif;
+                    text-align: left;
+                  }
+                  h1, .foot {
+                    text-align: center;
+                  }
+                </style>
+              </head>
+              <body>
+            <h1>Directory</h1>
+            <ul>
+              <li>The most exciting <a href="https://pwgen.tech.knet.ca">Password Generator</a></li>
+              <li>This handy <a href="https://visualsubnetcalc.tech.knet.ca">Visual Subnet Calculator</a></li>
+              <li>What is <a href="https://myip.knet.ca">My IP</a>?</li>
+              <li>Generate <a href="https://wifiqr.tech.knet.ca">QR Codes</a> for easy WiFi access</li>
+            </ul>
+            <hr />
+                <div class="foot">
+                  <small>Time: {{now | date "Monday January 2, 2006 15:04:05 MST"}}<br />Server: {{.Host}}</small>
+                </div>
+              </body>
+            </html>
+            HTML 200
+    }
 }
+

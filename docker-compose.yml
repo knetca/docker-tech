@@ -29,6 +29,20 @@ services:
     #   - "8080:8080"
     restart: unless-stopped
 
+  # Builds CA-only Starlink CIDR lists for the FortiGate external connector.
+  # Writes to ./volumes/starlink-feed, which Caddy serves read-only at /feeds/.
+  # No ports: it only makes outbound HTTPS to geoip.starlinkisp.net.
+  starlink-feed:
+    build: ./starlink-feed
+    container_name: starlink-feed
+    environment:
+      - OUT=/data
+      - ALLOW=*
+      - MIN_V4=50
+    volumes:
+      - ${PWD}/volumes/starlink-feed:/data
+    restart: unless-stopped
+
   caddy:
     image: caddy:2-alpine
     container_name: caddy
@@ -36,6 +50,7 @@ services:
       - ${PWD}/config/caddy/Caddyfile:/etc/caddy/Caddyfile
       - ${PWD}/volumes/caddy/data:/data
       - ${PWD}/volumes/caddy/config:/config
+      - ${PWD}/volumes/starlink-feed:/srv/feeds:ro
     ports:
       - "80:80"
       - "443:443"
